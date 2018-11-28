@@ -12,6 +12,14 @@ function check_arguments() {
     fi
 }
 
+#check if file exits
+function check_exists() {
+    if [ -e "$1" ]; then
+        echo "The file $1 already exists!"
+        exit 1
+    fi
+}
+
 #create header text depending on filetype
 function add_header() {
     extension=$(echo "$1" | cut -f 2 -d '.')
@@ -32,6 +40,7 @@ function make_executable() {
 }
 
 check_arguments "$@"
+check_exists "$1"
 add_header "$1"
 make_executable "$1"
 vim "$1"
